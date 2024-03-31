@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Assignment 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.147.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.147.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Assignment 2</h1>
+    </header>
+    
+    <section>
+		<p>In our 3D reconstruction process, we've made significant enhancements to our approach for triangulating new views and evaluating their accuracy through reprojection error analysis. These improvements are centered on the methods <strong>trangulate_new_view</strong>, <strong>update_cloud_and_refs</strong>, and <strong>compute_reprojection_error</strong>, alongside a visualization component via <strong>draw_correspondences</strong>.</p>
+	
+		<h3>Triangulating New Views with <em>trangulate_new_view</em></h3>
+		<p>Our <strong>trangulate_new_view</strong> method now robustly triangulates points between a new view and previously processed views by:</p>
+		<ul>
+			<li><strong>Identifying Matches:</strong> It finds keypoint matches between the new and each previous view, excluding those without references in the 3D model to ensure only meaningful triangulations.</li>
+			<li><strong>Outlier Removal:</strong> Utilizing RANSAC, it estimates the Fundamental matrix to filter out outlier matches, enhancing the accuracy of the triangulation process.</li>
+			<li><strong>Triangulation:</strong> For inlier matches, it triangulates 3D points by projecting matched keypoints from both views into 3D space using the camera matrices derived from extrinsic (rotation and translation) parameters.</li>
+			<li><strong>Updating the 3D Model:</strong> With the newly triangulated points, we update the global 3D point cloud and the reference indices in both the new and previous views, ensuring our 3D model accurately reflects the integrated information from multiple perspectives.</li>
+		</ul>
+	
+		<h3>Updating 3D References with <em>update_cloud_and_refs</em></h3>
+		<p>This method systematically updates the 3D point cloud and the image data references for both the current and previous images. It integrates new 3D points into the model and ensures that keypoints in both images correctly reference these points, thus maintaining the integrity and continuity of the 3D reconstruction.</p>
+	
+		<h3>Computing Reprojection Error with <em>compute_reprojection_error</em></h3>
+		<p>To assess the accuracy of our 3D reconstruction, we compute the reprojection error for given images by:</p>
+		<ul>
+			<li><strong>Filtering Valid Keypoints:</strong> Selecting keypoints that have corresponding 3D points in the model to ensure we only consider keypoints that contribute to the 3D structure.</li>
+			<li><strong>Projecting 3D Points to 2D:</strong> Using the camera's intrinsic and the image's extrinsic parameters to project the 3D points back onto the 2D image plane.</li>
+			<li><strong>Error Calculation:</strong> Measuring the Euclidean distance between the original and reprojected keypoints to calculate the average reprojection error.</li>
+			<li><strong>Visualization:</strong> Utilizing <em>draw_correspondences</em> to visually compare the ground truth and reprojected keypoints, this not only aids in error analysis but also provides intuitive feedback on the reconstruction quality.</li>
+		</ul>
+	
+		<h3>Visualizing Correspondences with <em>draw_correspondences</em></h3>
+		<p>Finally, our <strong>draw_correspondences</strong> method enhances the understanding of our reconstruction's accuracy by visually drawing connections between the actual keypoints and their reprojected counterparts. This visualization is crucial for identifying discrepancies and understanding the spatial distribution of reprojection errors.</p>
+	
+	</body>
+    </section>
+    
+    <section>
+        <h2>Structure From Motion</h2>
+        <h3>Mean Reprojection Error = 3.596977059043124 [t=2.32241s]</h3>
+        <div id="container"></div>
+    </section>
+    
+    <script type="module" src="assignment2.js"></script>
+</body>
+</html>

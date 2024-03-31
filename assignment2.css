@@ -1,0 +1,87 @@
+/* General reset for padding and margin */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Styling the body with a nice background and font */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+/* Centering all h1 and h2 elements */
+header h1, section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Adding some space between paragraphs */
+p {
+  margin-bottom: 10px;
+}
+
+/* Styling the container for the point cloud */
+#container {
+  background-color: #000;
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Adjust the height as needed */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Styling lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 20px;
+}
+
+ul li {
+  background: #ddd;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Style for links or buttons */
+a.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+a.button:hover {
+  background-color: #555;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  header h1, section h2 {
+      font-size: 18px;
+  }
+
+  body {
+    padding: 10px;
+  }
+  
+  #container {
+    background-color: #000;
+    position: relative;
+    width: 80%; /* Smaller width for focus */
+    height: 50vh; /* Smaller height to reduce size */
+    margin: 20px auto; /* Centering the container */
+    border: 1px solid #ddd; /* Optional: adds a border around the container */
+  }
+  
+}
